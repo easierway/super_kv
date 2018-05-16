@@ -1,0 +1,18 @@
+<seelog type="asynctimer" asyncinterval="5000000" minlevel="trace" maxlevel="error">
+   <outputs formatid="common">
+   
+   <buffered formatid="common" size="1000" flushperiod="1000">
+   
+   <rollingfile type="date" filename="./server.log" datepattern="12.02.01.2006" fullname="true" maxrolls="30"/>
+   
+   </buffered>
+   
+   </outputs>
+   
+    <formats>
+    
+
+        <format id="common" format="%Date %Time %EscM(46)[%LEV]%EscM(49)%EscM(0) [%File:%Line] [%Func] %Msg%n" />
+        
+    </formats>
+</seelog>

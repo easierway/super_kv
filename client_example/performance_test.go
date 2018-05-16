@@ -5,12 +5,13 @@ import (
 	"io"
 	"net"
 	"strconv"
-	//	"strconv"
 	"super_kv"
 	"sync"
 	"testing"
 	"time"
 	"unsafe"
+
+	"github.com/easierway/super_kv"
 )
 
 var conn net.Conn
@@ -19,8 +20,8 @@ const PAYLOAD_LEN = 2
 
 func createConn() net.Conn {
 	var err error
-	addr := "127.0.0.1:9003"          //定义主机名
-	conn, err = net.Dial("tcp", addr) //拨号操作，需要指定协议。
+	addr := "127.0.0.1:9003"
+	conn, err = net.Dial("tcp", addr)
 	if err != nil {
 		panic(err)
 	}

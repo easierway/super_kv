@@ -1,8 +1,9 @@
 package main
 
 import (
-	"super_kv"
 	"time"
+
+	"github.com/easierway/super_kv"
 )
 
 func main() {

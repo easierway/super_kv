@@ -4,13 +4,13 @@ import (
 	"github.com/syndtr/goleveldb/leveldb"
 )
 
-type LeveDB_Engine struct {
+type LevelDB_Engine struct {
 	DataPath string
 	Engine   *leveldb.DB
 }
 
 func CreateLevelDBEngine(dataPath string) (KV_Engine, error) {
-	engine := LeveDB_Engine{}
+	engine := LevelDB_Engine{}
 	engine.DataPath = dataPath
 	db, err := leveldb.OpenFile(dataPath, nil)
 	if err != nil {
@@ -20,14 +20,14 @@ func CreateLevelDBEngine(dataPath string) (KV_Engine, error) {
 	return &engine, nil
 }
 
-func (engine *LeveDB_Engine) Set(key []byte, value []byte) error {
+func (engine *LevelDB_Engine) Set(key []byte, value []byte) error {
 	return engine.Engine.Put(key, value, nil)
 }
 
-func (engine *LeveDB_Engine) Get(key []byte) ([]byte, error) {
+func (engine *LevelDB_Engine) Get(key []byte) ([]byte, error) {
 	return engine.Engine.Get(key, nil)
 }
 
-func (engine *LeveDB_Engine) Delete(key []byte) error {
+func (engine *LevelDB_Engine) Delete(key []byte) error {
 	return engine.Engine.Delete(key, nil)
 }

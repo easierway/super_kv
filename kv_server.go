@@ -20,6 +20,7 @@ type Server struct {
 	NumOfConnHandler   int
 	ConnWaitingTimeout time.Duration
 	LogConfig          string
+	stopChan           chan struct{}
 }
 
 func (server *Server) startHandlerPool() {
@@ -37,6 +38,7 @@ func (server *Server) startHandlerPool() {
 func (server *Server) StartServer() error {
 	var err error
 	logger, err = seelog.LoggerFromConfigAsFile("seelog.xml")
+	server.stopChan = make(chan struct{})
 	checkFatalError(err)
 	logger.Info("Starting server")
 	server.startHandlerPool()
@@ -51,6 +53,8 @@ func (server *Server) StartServer() error {
 			continue
 		}
 		select {
+		case <-server.stopChan:
+			break
 		case server.connBuf <- conn:
 		case <-time.After(server.ConnWaitingTimeout):
 			data := packResponse(ACK_CONN_WAITING_TIME_OUT, nil)
@@ -59,6 +63,10 @@ func (server *Server) StartServer() error {
 		}
 
 	}
+}
+
+func (server *Server) StopServer() {
+	close(server.stopChan)
 }
 
 func checkFatalError(err error) {

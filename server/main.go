@@ -16,4 +16,5 @@ func main() {
 		LogConfig:          "seelog.xml",
 	}
 	server.StartServer()
+	server.StopServer()
 }
